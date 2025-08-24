@@ -22,7 +22,7 @@ class _UsersScreenState extends State<UsersScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
-    
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -84,15 +84,17 @@ class _UsersScreenState extends State<UsersScreen> {
                 // Filter out current user and apply search filter
                 final filteredUsers = users.where((user) {
                   if (user.id == currentUserId) return false;
-                  
+
                   final userData = user.data() as Map<String, dynamic>;
-                  final username = userData['username']?.toString().toLowerCase() ?? '';
-                  final email = userData['email']?.toString().toLowerCase() ?? '';
-                  
+                  final username =
+                      userData['username']?.toString().toLowerCase() ?? '';
+                  final email =
+                      userData['email']?.toString().toLowerCase() ?? '';
+
                   if (_searchQuery.isEmpty) return true;
-                  
-                  return username.contains(_searchQuery) || 
-                         email.contains(_searchQuery);
+
+                  return username.contains(_searchQuery) ||
+                      email.contains(_searchQuery);
                 }).toList();
 
                 if (filteredUsers.isEmpty) {
@@ -107,9 +109,9 @@ class _UsersScreenState extends State<UsersScreen> {
                         ),
                         SizedBox(height: SizeConfig.hs(16)),
                         Text(
-                          _searchQuery.isEmpty 
-                            ? 'No other users yet' 
-                            : 'No users found',
+                          _searchQuery.isEmpty
+                              ? 'No other users yet'
+                              : 'No users found',
                           style: TextStyle(
                             fontSize: SizeConfig.fs(18),
                             color: Colors.grey.shade600,
@@ -117,9 +119,9 @@ class _UsersScreenState extends State<UsersScreen> {
                         ),
                         SizedBox(height: SizeConfig.hs(8)),
                         Text(
-                          _searchQuery.isEmpty 
-                            ? 'Tell others to join the app!' 
-                            : 'Try a different search term',
+                          _searchQuery.isEmpty
+                              ? 'Tell others to join the app!'
+                              : 'Try a different search term',
                           style: TextStyle(
                             fontSize: SizeConfig.fs(14),
                             color: Colors.grey.shade500,
@@ -134,7 +136,8 @@ class _UsersScreenState extends State<UsersScreen> {
                   padding: EdgeInsets.only(bottom: SizeConfig.hs(16)),
                   itemCount: filteredUsers.length,
                   itemBuilder: (context, index) {
-                    final user = filteredUsers[index].data() as Map<String, dynamic>;
+                    final user =
+                        filteredUsers[index].data() as Map<String, dynamic>;
                     return UserTile(
                       user: user,
                       userId: filteredUsers[index].id,
